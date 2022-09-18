@@ -81,7 +81,12 @@ export default class Main {
          * 2 = MEDIUM
          * 3 = HARD
          */
-        this.difficulty = 1;
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        let value = params.diff;
+        console.log(value);
+        this.difficulty = value;
         this.turn = 0;
 
         this.update();
