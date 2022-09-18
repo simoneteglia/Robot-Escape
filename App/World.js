@@ -25,7 +25,7 @@ export default class World {
         /**
          * GROUND
          */
-        
+
         const groundBody = new CANNON.Body({
             type: CANNON.Body.STATIC, // can also be achieved by setting the mass to 0
             shape: new CANNON.Box(new CANNON.Vec3(30, 1, 30)),
@@ -45,32 +45,42 @@ export default class World {
         this.directionalLight.shadow.camera.left = -60;
         this.directionalLight.shadow.camera.top = 60;
         this.directionalLight.shadow.camera.bottom = -60;
-        this.directionalLight.shadow.mapSize.width = 1024*2;
-        this.directionalLight.shadow.mapSize.height = 1024*2;
+        this.directionalLight.shadow.mapSize.width = 1024 * 2;
+        this.directionalLight.shadow.mapSize.height = 1024 * 2;
         this.directionalLight.shadow.radius = 4;
         this.directionalLight.shadow.bias = -0.0005;
         this.scene.add(this.directionalLight);
 
+        this.gui
+            .add(this.directionalLight, "visible")
+            .name("Directional Light ON/OFF ").$disable;
+
         // let directionalLightHelper = new THREE.DirectionalLightHelper(this.directionalLight);
         // this.scene.add(directionalLightHelper);
 
-        this.directionalLight2 = new THREE.DirectionalLight("cornflowerBlue", 2);
+        this.directionalLight2 = new THREE.DirectionalLight(
+            "cornflowerBlue",
+            2
+        );
         this.directionalLight2.position.set(-30, 40, 30);
         this.directionalLight2.castShadow = false;
         this.scene.add(this.directionalLight2);
+
+        this.gui
+            .add(this.directionalLight2, "visible")
+            .name("Directional Light 2 ON/OFF ").$disable;
 
         // let directionalLightHelper2 = new THREE.DirectionalLightHelper(this.directionalLight2);
         // this.scene.add(directionalLightHelper2);
 
         this.directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.3);
         this.directionalLight3.position.set(0, 40, 50);
-        this.directionalLight3.castShadow = false;  
+        this.directionalLight3.castShadow = false;
         this.scene.add(this.directionalLight3);
 
-        let target = new THREE.Object3D();
-        target.translateX(15);
-        this.directionalLight3.target = target;
-        this.scene.add(target);
+        this.gui
+            .add(this.directionalLight3, "visible")
+            .name("Directional Light 3 ON/OFF ").$disable;
 
         // let directionalLightHelper3 = new THREE.DirectionalLightHelper(this.directionalLight3);
         // this.scene.add(directionalLightHelper3);
@@ -82,11 +92,18 @@ export default class World {
         this.pointLight.position.set(0, 20, -80);
         this.scene.add(this.pointLight);
 
+        this.gui.add(this.pointLight, "visible").name("Point Light ON/OFF ")
+            .$disable;
+
         // this.scene.add(new THREE.PointLightHelper(this.pointLight));
 
         this.pointLightCup = new THREE.PointLight("white", 2, 30.0);
         this.pointLightCup.position.set(0, 2, -85);
         this.scene.add(this.pointLightCup);
+
+        this.gui
+            .add(this.pointLightCup, "visible")
+            .name("Point Light Cup ON/OFF ").$disable;
 
         // this.scene.add(new THREE.PointLightHelper(this.pointLightCup));
     }

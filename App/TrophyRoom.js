@@ -7,9 +7,16 @@ import {
     get_center,
     get_measure,
     enableShadows,
-    focus_on
+    focus_on,
 } from "./Utils/Functions.js";
-import { SLIDE_DOOR_SCALE_FACTOR, GROUND_SIZE, PERIMETER_WALL_SIZE, WALL_COLOR, FINAL_DOOR_SCALE_FACTOR, CORRIDOR_WIDTH } from "./Utils/Constants.js";
+import {
+    SLIDE_DOOR_SCALE_FACTOR,
+    GROUND_SIZE,
+    PERIMETER_WALL_SIZE,
+    WALL_COLOR,
+    FINAL_DOOR_SCALE_FACTOR,
+    CORRIDOR_WIDTH,
+} from "./Utils/Constants.js";
 import { create_ground, create_wall } from "./Utils/RoomFunctions.js";
 
 export default class TrophyRoom {
@@ -18,7 +25,8 @@ export default class TrophyRoom {
         this.scene = this.main.scene;
         this.physics = this.main.physics;
         this.objects = this.get_room_objects();
-        [this.finalDoorSize, this.groundsSize, this.wallsSize] = this.compute_objects_sizes();
+        [this.finalDoorSize, this.groundsSize, this.wallsSize] =
+            this.compute_objects_sizes();
         this.add_bodies();
 
         this.init();
@@ -29,7 +37,7 @@ export default class TrophyRoom {
 
         for (const object of this.scene.children) {
             const name = object.name;
-            if (name.includes("trophyRoom") || name=="mainRoom.finalDoor") {
+            if (name.includes("trophyRoom") || name == "mainRoom.finalDoor") {
                 objects[name] = object;
 
                 //XXX debugging
@@ -46,43 +54,64 @@ export default class TrophyRoom {
         let wallsSize = {};
 
         const finalDoor = this.objects["mainRoom.finalDoor"].clone();
-        finalDoor.scale.set(FINAL_DOOR_SCALE_FACTOR, FINAL_DOOR_SCALE_FACTOR, FINAL_DOOR_SCALE_FACTOR);
+        finalDoor.scale.set(
+            FINAL_DOOR_SCALE_FACTOR,
+            FINAL_DOOR_SCALE_FACTOR,
+            FINAL_DOOR_SCALE_FACTOR
+        );
         const finalDoorMeasure = get_measure(finalDoor);
-        const finalDoorSize = {width: finalDoorMeasure.x, height: finalDoorMeasure.y, depth: finalDoorMeasure.z};
+        const finalDoorSize = {
+            width: finalDoorMeasure.x,
+            height: finalDoorMeasure.y,
+            depth: finalDoorMeasure.z,
+        };
 
-        groundsSize["trophyRoom.hallway.ground"] = {width: finalDoorSize.width, height: (2/3)*GROUND_SIZE.height};
-        groundsSize["trophyRoom.ground"] = {width: GROUND_SIZE.width/2, height: GROUND_SIZE.height/2};
+        groundsSize["trophyRoom.hallway.ground"] = {
+            width: finalDoorSize.width,
+            height: (2 / 3) * GROUND_SIZE.height,
+        };
+        groundsSize["trophyRoom.ground"] = {
+            width: GROUND_SIZE.width / 2,
+            height: GROUND_SIZE.height / 2,
+        };
 
         const wallHeight = PERIMETER_WALL_SIZE.height;
         const wallDepth = PERIMETER_WALL_SIZE.depth;
         wallsSize["mainRoom.wall.perimeter.rear.withDoor"] = {
-            width: PERIMETER_WALL_SIZE.width, 
-            height: wallHeight, 
-            depth: finalDoorSize.depth
+            width: PERIMETER_WALL_SIZE.width,
+            height: wallHeight,
+            depth: finalDoorSize.depth,
         };
         wallsSize["trophyRoom.hallway.wall.left"] = {
-            width: groundsSize["trophyRoom.hallway.ground"].height, 
-            height: wallHeight, 
-            depth: wallDepth
+            width: groundsSize["trophyRoom.hallway.ground"].height,
+            height: wallHeight,
+            depth: wallDepth,
         };
-        wallsSize["trophyRoom.hallway.wall.right"] = wallsSize["trophyRoom.hallway.wall.left"];
+        wallsSize["trophyRoom.hallway.wall.right"] =
+            wallsSize["trophyRoom.hallway.wall.left"];
         wallsSize["trophyRoom.wall.left"] = {
-            width: groundsSize["trophyRoom.ground"].height, 
-            height: wallHeight, 
-            depth: wallDepth
+            width: groundsSize["trophyRoom.ground"].height,
+            height: wallHeight,
+            depth: wallDepth,
         };
         wallsSize["trophyRoom.wall.right"] = wallsSize["trophyRoom.wall.left"];
         wallsSize["trophyRoom.wall.rear"] = {
-            width: groundsSize["trophyRoom.ground"].width + wallDepth, 
-            height: wallHeight, 
-            depth: wallDepth
+            width: groundsSize["trophyRoom.ground"].width + wallDepth,
+            height: wallHeight,
+            depth: wallDepth,
         };
         wallsSize["trophyRoom.wall.front.left"] = {
-            width: (groundsSize["trophyRoom.ground"].width - groundsSize["trophyRoom.hallway.ground"].width)/2 + wallDepth - 0.6,
-            height: wallHeight, 
-            depth: wallDepth
+            width:
+                (groundsSize["trophyRoom.ground"].width -
+                    groundsSize["trophyRoom.hallway.ground"].width) /
+                    2 +
+                wallDepth -
+                0.6,
+            height: wallHeight,
+            depth: wallDepth,
         };
-        wallsSize["trophyRoom.wall.front.right"] = wallsSize["trophyRoom.wall.front.left"];
+        wallsSize["trophyRoom.wall.front.right"] =
+            wallsSize["trophyRoom.wall.front.left"];
 
         return [finalDoorSize, groundsSize, wallsSize];
     }
@@ -100,9 +129,13 @@ export default class TrophyRoom {
          */
 
         texture = {
-            baseColor: this.main.textures.find(e => e.name == "trophyRoom.ground.baseColor"),
-            normal: this.main.textures.find(e => e.name == "trophyRoom.ground.normal")
-        }
+            baseColor: this.main.textures.find(
+                (e) => e.name == "trophyRoom.ground.baseColor"
+            ),
+            normal: this.main.textures.find(
+                (e) => e.name == "trophyRoom.ground.normal"
+            ),
+        };
 
         objectName = "trophyRoom.hallway.ground";
         size = this.groundsSize[objectName];
@@ -123,14 +156,17 @@ export default class TrophyRoom {
          */
 
         texture = {
-            baseColor: this.main.textures.find(e => e.name == "mainRoom.wall.baseColor"),
-            normal: this.main.textures.find(e => e.name == "mainRoom.wall.normal")
-        }
+            baseColor: this.main.textures.find(
+                (e) => e.name == "mainRoom.wall.baseColor"
+            ),
+            normal: this.main.textures.find(
+                (e) => e.name == "mainRoom.wall.normal"
+            ),
+        };
 
-        for(var name in this.wallsSize) {
-            if(!name.includes("trophyRoom"))
-                continue;
-            
+        for (var name in this.wallsSize) {
+            if (!name.includes("trophyRoom")) continue;
+
             const size = this.wallsSize[name];
             mesh = create_wall(
                 size.width,
@@ -148,15 +184,20 @@ export default class TrophyRoom {
          * Cup
          */
 
-        let cup = this.objects["trophyRoom.cup"];   
+        let cup = this.objects["trophyRoom.cup"];
         let scaleFactor = 40;
         cup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         cup.position.set(0, 0, -92);
-
     }
 
     instantiate() {
-        let object, objectSize, targetName, referenceName, referenceSize, referencePosition, scaleFactor;
+        let object,
+            objectSize,
+            targetName,
+            referenceName,
+            referenceSize,
+            referencePosition,
+            scaleFactor;
 
         /**
          * Grounds
@@ -167,15 +208,14 @@ export default class TrophyRoom {
         targetName = "trophyRoom.hallway.ground";
         object = this.objects[targetName];
         objectSize = this.groundsSize[targetName];
-        
+
         referenceName = "mainRoom.wall.perimeter.rear.withDoor";
         referenceSize = this.wallsSize[referenceName];
-        
-        object.rotation.x = -Math.PI/2;
+
+        object.rotation.x = -Math.PI / 2;
         object.translateY(
-            GROUND_SIZE.height/2 + referenceSize.depth + objectSize.height/2
+            GROUND_SIZE.height / 2 + referenceSize.depth + objectSize.height / 2
         );
-        console.log(GROUND_SIZE.height/2 + referenceSize.depth + objectSize.height/2);
 
         // Room Ground
 
@@ -187,35 +227,47 @@ export default class TrophyRoom {
         referencePosition = get_center(this.objects[referenceName]);
         referenceSize = this.groundsSize[referenceName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.rotation.x = -Math.PI/2;
-        object.translateY(referenceSize.height/2 + objectSize.height/2);
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.rotation.x = -Math.PI / 2;
+        object.translateY(referenceSize.height / 2 + objectSize.height / 2);
 
         /**
          * Walls
-        */
+         */
 
         // Hallway Left Wall
 
         targetName = "trophyRoom.hallway.wall.left";
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
-        
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.rotation.y = -Math.PI/2;
-        object.translateY(objectSize.height/2);
-        object.translateZ(referenceSize.width/2 + 0.6);
+
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.rotation.y = -Math.PI / 2;
+        object.translateY(objectSize.height / 2);
+        object.translateZ(referenceSize.width / 2 + 0.6);
 
         // Hallway Right Wall
 
         targetName = "trophyRoom.hallway.wall.right";
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
-        
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.rotation.y = -Math.PI/2;
-        object.translateY(objectSize.height/2);
-        object.translateZ(-referenceSize.width/2 - 0.6);
+
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.rotation.y = -Math.PI / 2;
+        object.translateY(objectSize.height / 2);
+        object.translateZ(-referenceSize.width / 2 - 0.6);
 
         // Room Left Wall
 
@@ -227,10 +279,14 @@ export default class TrophyRoom {
         referencePosition = get_center(this.objects[referenceName]);
         referenceSize = this.groundsSize[referenceName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.rotation.y = -Math.PI/2;
-        object.translateY(objectSize.height/2);
-        object.translateZ(referenceSize.width/2);
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.rotation.y = -Math.PI / 2;
+        object.translateY(objectSize.height / 2);
+        object.translateZ(referenceSize.width / 2);
 
         // Room Right Wall
 
@@ -238,10 +294,14 @@ export default class TrophyRoom {
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.rotation.y = -Math.PI/2;
-        object.translateY(objectSize.height/2);
-        object.translateZ(-referenceSize.width/2);
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.rotation.y = -Math.PI / 2;
+        object.translateY(objectSize.height / 2);
+        object.translateZ(-referenceSize.width / 2);
 
         // Room Rear Wall
 
@@ -249,9 +309,13 @@ export default class TrophyRoom {
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.translateY(objectSize.height/2);
-        object.translateZ(-referenceSize.height/2);
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.translateY(objectSize.height / 2);
+        object.translateZ(-referenceSize.height / 2);
 
         // Room Front Left Wall
 
@@ -259,10 +323,20 @@ export default class TrophyRoom {
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.translateY(objectSize.height/2);
-        object.translateZ(referenceSize.height/2);
-        object.translateX(-(referenceSize.width/2 - objectSize.width/2 + objectSize.depth/2));
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.translateY(objectSize.height / 2);
+        object.translateZ(referenceSize.height / 2);
+        object.translateX(
+            -(
+                referenceSize.width / 2 -
+                objectSize.width / 2 +
+                objectSize.depth / 2
+            )
+        );
 
         // Room Front Left Wall
 
@@ -270,60 +344,81 @@ export default class TrophyRoom {
         object = this.objects[targetName];
         objectSize = this.wallsSize[targetName];
 
-        object.position.set(referencePosition.x, referencePosition.y, referencePosition.z);
-        object.translateY(objectSize.height/2);
-        object.translateZ(referenceSize.height/2);
-        object.translateX(referenceSize.width/2 - objectSize.width/2 + objectSize.depth/2);
+        object.position.set(
+            referencePosition.x,
+            referencePosition.y,
+            referencePosition.z
+        );
+        object.translateY(objectSize.height / 2);
+        object.translateZ(referenceSize.height / 2);
+        object.translateX(
+            referenceSize.width / 2 -
+                objectSize.width / 2 +
+                objectSize.depth / 2
+        );
     }
 
-    add_bodies(){
+    add_bodies() {
         let newBody, object, objectSize;
 
         /**
          * HALLWAY WALLS BODIES
          */
         objectSize = this.wallsSize["trophyRoom.hallway.wall.left"];
-        
+
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, objectSize.width / 2)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(
+                    objectSize.depth / 2,
+                    objectSize.height / 2,
+                    objectSize.width / 2
+                )
+            ),
         });
         newBody.position.y = objectSize.height / 2;
-        newBody.position.x = CORRIDOR_WIDTH-1.5;
+        newBody.position.x = CORRIDOR_WIDTH - 1.5;
         newBody.position.z = -50;
         this.physics.addBody(newBody);
 
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, objectSize.width / 2)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(
+                    objectSize.depth / 2,
+                    objectSize.height / 2,
+                    objectSize.width / 2
+                )
+            ),
         });
         newBody.position.y = objectSize.height / 2;
-        newBody.position.x = -(CORRIDOR_WIDTH-1.5);
+        newBody.position.x = -(CORRIDOR_WIDTH - 1.5);
         newBody.position.z = -50;
         this.physics.addBody(newBody);
 
         // ADDON HALLWAY WALL LEFT
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, 3)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, 3)
+            ),
         });
         newBody.position.y = objectSize.height / 2;
-        newBody.position.x = -(CORRIDOR_WIDTH-1.5);
+        newBody.position.x = -(CORRIDOR_WIDTH - 1.5);
         newBody.position.z = -74;
         this.physics.addBody(newBody);
 
         // ADDON HALLWAY WALL RIGHT
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, 3)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(objectSize.depth / 2, objectSize.height / 2, 3)
+            ),
         });
         newBody.position.y = objectSize.height / 2;
-        newBody.position.x = (CORRIDOR_WIDTH-1.5);
+        newBody.position.x = CORRIDOR_WIDTH - 1.5;
         newBody.position.z = -74;
         this.physics.addBody(newBody);
-
-      
-
 
         /**
          * HALLWAY GROUND BODY
@@ -331,7 +426,9 @@ export default class TrophyRoom {
         objectSize = this.groundsSize["trophyRoom.hallway.ground"];
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.width / 2, 1, objectSize.height / 2)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(objectSize.width / 2, 1, objectSize.height / 2)
+            ),
         });
         newBody.position.z = -50;
         newBody.position.y = -1;
@@ -345,7 +442,6 @@ export default class TrophyRoom {
         newBody.position.y = -1;
         this.physics.addBody(newBody);
 
-
         /**
          * ROOM BODIES
          */
@@ -354,13 +450,13 @@ export default class TrophyRoom {
         objectSize = this.groundsSize["trophyRoom.ground"];
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.width / 2, 1, objectSize.height / 2)),
-        }); 
+            shape: new CANNON.Box(
+                new CANNON.Vec3(objectSize.width / 2, 1, objectSize.height / 2)
+            ),
+        });
         newBody.position.z = -91.5;
         newBody.position.y = -1;
         this.physics.addBody(newBody);
-
-
 
         //WALLS
 
@@ -368,55 +464,74 @@ export default class TrophyRoom {
         objectSize = this.wallsSize["trophyRoom.wall.right"];
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth/ 2, objectSize.height / 2, objectSize.width / 2)),
-        }); 
+            shape: new CANNON.Box(
+                new CANNON.Vec3(
+                    objectSize.depth / 2,
+                    objectSize.height / 2,
+                    objectSize.width / 2
+                )
+            ),
+        });
         newBody.position.z = -91.5;
         newBody.position.y = objectSize.height / 2;
         newBody.position.x = 15;
         this.physics.addBody(newBody);
 
-         //LEFT WALL
-         objectSize = this.wallsSize["trophyRoom.wall.right"];
-         newBody = new CANNON.Body({
-             type: CANNON.Body.STATIC,
-             shape: new CANNON.Box(new CANNON.Vec3(objectSize.depth/ 2, objectSize.height / 2, objectSize.width / 2)),
-         }); 
-         newBody.position.z = -91.5;
-         newBody.position.y = objectSize.height / 2;
-         newBody.position.x = -15;
-         this.physics.addBody(newBody);
-
-         //REAR WALL
-         newBody = new CANNON.Body({
-             type: CANNON.Body.STATIC,
-             shape: new CANNON.Box(new CANNON.Vec3(objectSize.width/ 2, objectSize.height / 2, objectSize.depth / 2)),
-         }); 
-         newBody.position.z = -106.5;
-         newBody.position.y = objectSize.height / 2;
-         this.physics.addBody(newBody);
-
-
-        //ADDON LEFT FRONT WALL SMALL 
+        //LEFT WALL
+        objectSize = this.wallsSize["trophyRoom.wall.right"];
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(3, objectSize.height / 2, objectSize.depth / 2)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(
+                    objectSize.depth / 2,
+                    objectSize.height / 2,
+                    objectSize.width / 2
+                )
+            ),
+        });
+        newBody.position.z = -91.5;
+        newBody.position.y = objectSize.height / 2;
+        newBody.position.x = -15;
+        this.physics.addBody(newBody);
+
+        //REAR WALL
+        newBody = new CANNON.Body({
+            type: CANNON.Body.STATIC,
+            shape: new CANNON.Box(
+                new CANNON.Vec3(
+                    objectSize.width / 2,
+                    objectSize.height / 2,
+                    objectSize.depth / 2
+                )
+            ),
+        });
+        newBody.position.z = -106.5;
+        newBody.position.y = objectSize.height / 2;
+        this.physics.addBody(newBody);
+
+        //ADDON LEFT FRONT WALL SMALL
+        newBody = new CANNON.Body({
+            type: CANNON.Body.STATIC,
+            shape: new CANNON.Box(
+                new CANNON.Vec3(3, objectSize.height / 2, objectSize.depth / 2)
+            ),
         });
         newBody.position.y = objectSize.height / 2;
         newBody.position.x = -(CORRIDOR_WIDTH + 1.5);
         newBody.position.z = -76.5;
         this.physics.addBody(newBody);
 
-        //ADDON RIGHT FRONT WALL SMALL 
+        //ADDON RIGHT FRONT WALL SMALL
         newBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
-            shape: new CANNON.Box(new CANNON.Vec3(3, objectSize.height / 2, objectSize.depth / 2)),
+            shape: new CANNON.Box(
+                new CANNON.Vec3(3, objectSize.height / 2, objectSize.depth / 2)
+            ),
         });
         newBody.position.y = objectSize.height / 2;
-        newBody.position.x = (CORRIDOR_WIDTH + 1.5);
+        newBody.position.x = CORRIDOR_WIDTH + 1.5;
         newBody.position.z = -76.5;
         this.physics.addBody(newBody);
-
-
 
         /**
          * CUP
@@ -429,7 +544,5 @@ export default class TrophyRoom {
         newBody.position.y = 0;
         newBody.position.z = -92;
         this.physics.addBody(newBody);
-
     }
-
 }

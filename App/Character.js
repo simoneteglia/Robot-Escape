@@ -91,7 +91,7 @@ export default class Character {
         this.setBones(rootNode, bones);
 
         //Handle GUI
-        this.setGui();
+        // this.setGui();
 
         /* EVENT HANDLERS SECTION
          */
