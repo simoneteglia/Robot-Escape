@@ -187,7 +187,7 @@ progress {
     height: 100vh;
     z-index: 999;
     background-color: rgba(34, 34, 68, 1);
-    opacity: 0;
+    opacity: 1;
 }
 
 .main-title {

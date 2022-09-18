@@ -1049,6 +1049,12 @@ export default class Character {
         /**
          * MOVEMENT
          */
+
+        if (!this.main.started) {
+            this.main.started = true;
+            this.main.camera.getCameraToPosition();
+        }
+
         if (!this.main.closeUpActive) {
             if (
                 (this.keyboardSpace &&

@@ -63,7 +63,7 @@ export default class Main {
         this.setCamera();
         this.setRenderer();
         this.setWorld();
-        this.setLandingButtons();
+        //this.setLandingButtons();
 
         // this.activeCamera = this.camera.orbitControlsCamera;
         this.activeCamera = this.camera.mainCamera;
@@ -89,42 +89,58 @@ export default class Main {
 
     setLandingButtons() {
         let landing = document.getElementById("landing-page");
-        document.getElementById("start-button").onclick = () => {
-            this.camera.getCameraToPosition();
-            document.getElementById("landing-page").style.pointerEvents = "none";
-            document.getElementById("timer-button").style.opacity = 1;
-            let dummy = { x: 0.8 };
-            new TWEEN.Tween(dummy).to({ x: 0 }, 800)
-                .onUpdate(() => landing.style.opacity = dummy.x)
-                .start();
-            this.started = true;
-            if (this.difficulty === 1) {
-                this.scene.getObjectByName("mainRoom.arrow").visible = true;
-                this.scene.getObjectByName("mainRoom.arrowBucket").visible = true;
-                this.scene.getObjectByName("mainRoom.arrowPinpad").visible = true;
-                this.scene.getObjectByName("mainRoom.arrowButton").visible = true;
-                this.maxClockValue = EASY_TIMER;
-                this.startingAlertClock = this.maxClockValue * 0.1;
-            }
-
-            else if (this.difficulty === 2) {
-                this.scene.getObjectByName("mainRoom.arrow").visible = true;
-                this.scene.getObjectByName("mainRoom.arrowBucket").visible = false;
-                this.scene.getObjectByName("mainRoom.arrowPinpad").visible = true;
-                this.scene.getObjectByName("mainRoom.arrowButton").visible = false;
-                this.maxClockValue = MEDIUM_TIMER;
-                this.startingAlertClock = this.maxClockValue * 0.1;
-            }
-
-            else {
-                this.scene.getObjectByName("mainRoom.arrow").visible = false;
-                this.scene.getObjectByName("mainRoom.arrowBucket").visible = false;
-                this.scene.getObjectByName("mainRoom.arrowPinpad").visible = false;
-                this.scene.getObjectByName("mainRoom.arrowButton").visible = false;
-                this.maxClockValue = HARD_TIMER;
-                this.startingAlertClock = this.maxClockValue * 0.1;
-            }
-        }
+        // document.getElementById("start-button").onclick = () => {
+        //     this.camera.getCameraToPosition();
+        //     document.getElementById("landing-page").style.pointerEvents =
+        //         "none";
+        //     document.getElementById("timer-button").style.opacity = 1;
+        //     let dummy = { x: 0.8 };
+        //     new TWEEN.Tween(dummy)
+        //         .to({ x: 0 }, 800)
+        //         .onUpdate(() => (landing.style.opacity = dummy.x))
+        //         .start();
+        //     this.started = true;
+        //     if (this.difficulty === 1) {
+        //         this.scene.getObjectByName("mainRoom.arrow").visible = true;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowBucket"
+        //         ).visible = true;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowPinpad"
+        //         ).visible = true;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowButton"
+        //         ).visible = true;
+        //         this.maxClockValue = EASY_TIMER;
+        //         this.startingAlertClock = this.maxClockValue * 0.1;
+        //     } else if (this.difficulty === 2) {
+        //         this.scene.getObjectByName("mainRoom.arrow").visible = true;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowBucket"
+        //         ).visible = false;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowPinpad"
+        //         ).visible = true;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowButton"
+        //         ).visible = false;
+        //         this.maxClockValue = MEDIUM_TIMER;
+        //         this.startingAlertClock = this.maxClockValue * 0.1;
+        //     } else {
+        //         this.scene.getObjectByName("mainRoom.arrow").visible = false;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowBucket"
+        //         ).visible = false;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowPinpad"
+        //         ).visible = false;
+        //         this.scene.getObjectByName(
+        //             "mainRoom.arrowButton"
+        //         ).visible = false;
+        //         this.maxClockValue = HARD_TIMER;
+        //         this.startingAlertClock = this.maxClockValue * 0.1;
+        //     }
+        // };
 
         let easyButton = document.getElementById("easy-button");
         let mediumButton = document.getElementById("medium-button");
@@ -135,46 +151,46 @@ export default class Main {
         /**
          * INITIAL
          */
-        easyButton.onclick = () => {
-            easyButton.style.transform = "scale(1.2)";
-            mediumButton.style.transform = "scale(1)";
-            hardButton.style.transform = "scale(1)";
+        // easyButton.onclick = () => {
+        //     easyButton.style.transform = "scale(1.2)";
+        //     mediumButton.style.transform = "scale(1)";
+        //     hardButton.style.transform = "scale(1)";
 
-            easyButton.style.setProperty("--easy-underline-width", "100%");
-            mediumButton.style.setProperty("--medium-underline-width", "0%");
-            hardButton.style.setProperty("--hard-underline-width", "0%");
+        //     easyButton.style.setProperty("--easy-underline-width", "100%");
+        //     mediumButton.style.setProperty("--medium-underline-width", "0%");
+        //     hardButton.style.setProperty("--hard-underline-width", "0%");
 
-            this.difficulty = 1;
-        }
-        mediumButton.onclick = () => {
-            easyButton.style.transform = "scale(1)";
-            mediumButton.style.transform = "scale(1.2)";
-            hardButton.style.transform = "scale(1)";
+        //     this.difficulty = 1;
+        // };
+        // mediumButton.onclick = () => {
+        //     easyButton.style.transform = "scale(1)";
+        //     mediumButton.style.transform = "scale(1.2)";
+        //     hardButton.style.transform = "scale(1)";
 
-            easyButton.style.setProperty("--easy-underline-width", "0%");
-            mediumButton.style.setProperty("--medium-underline-width", "100%");
-            hardButton.style.setProperty("--hard-underline-width", "0%");
+        //     easyButton.style.setProperty("--easy-underline-width", "0%");
+        //     mediumButton.style.setProperty("--medium-underline-width", "100%");
+        //     hardButton.style.setProperty("--hard-underline-width", "0%");
 
-            this.difficulty = 2;
-        };
-        hardButton.onclick = () => {
-            hardButton.style.transform = "scale(1.2)";
-            easyButton.style.transform = "scale(1)";
-            mediumButton.style.transform = "scale(1)";
+        //     this.difficulty = 2;
+        // };
+        // hardButton.onclick = () => {
+        //     hardButton.style.transform = "scale(1.2)";
+        //     easyButton.style.transform = "scale(1)";
+        //     mediumButton.style.transform = "scale(1)";
 
-            hardButton.style.setProperty("--hard-underline-width", "100%");
-            easyButton.style.setProperty("--easy-underline-width", "0%");
-            mediumButton.style.setProperty("--medium-underline-width", "0%");
+        //     hardButton.style.setProperty("--hard-underline-width", "100%");
+        //     easyButton.style.setProperty("--easy-underline-width", "0%");
+        //     mediumButton.style.setProperty("--medium-underline-width", "0%");
 
-            this.difficulty = 3;
-        };
+        //     this.difficulty = 3;
+        // };
 
-        backButton.onclick = () => {
-            document.getElementById("rules").style.left = "100vw";
-        };
-        rulesButton.onclick = () => {
-            document.getElementById("rules").style.left = "0";
-        };
+        // backButton.onclick = () => {
+        //     document.getElementById("rules").style.left = "100vw";
+        // };
+        // rulesButton.onclick = () => {
+        //     document.getElementById("rules").style.left = "0";
+        // };
     }
 
     setConfig() {
@@ -234,29 +250,40 @@ export default class Main {
                 this.clock.stop();
                 if (this.gameOver === 0) {
                     this.gameOver = 1;
-                    document.getElementById("timer-box-text").innerHTML = (s - (s %= 60)) / 60 + (10 < s ? ':' : ':0') + Math.trunc(s);
+                    document.getElementById("timer-box-text").innerHTML =
+                        (s - (s %= 60)) / 60 +
+                        (10 < s ? ":" : ":0") +
+                        Math.trunc(s);
                     deathTween(this.world.character);
                     this.closeUpActive = true;
-                    //document.getElementById("game-over").style.opacity = 1;
-                    let boxOver = document.getElementById("game-over-container");
+                    // document.getElementById("game-over").style.opacity = 1;
+                    let boxOver = document.getElementById(
+                        "game-over-container"
+                    );
                     boxOver.className = "landing-page";
                     //boxOver.style.pointerEvents = "";
                     let dummy = { x: 0 };
-                    new TWEEN.Tween(dummy).to({ x: 0.8 }, 1000)
-                        .onUpdate(() => boxOver.style.opacity = dummy.x)
+                    new TWEEN.Tween(dummy)
+                        .to({ x: 0.8 }, 1000)
+                        .onUpdate(() => (boxOver.style.opacity = dummy.x))
                         .start();
                 }
-            }
-            else if (s <= this.startingAlertClock && s > 0) {
-                document.getElementById("timer-button").style.backgroundColor = "red";
+            } else if (s <= this.startingAlertClock && s > 0) {
+                document.getElementById("timer-button").style.backgroundColor =
+                    "red";
                 document.getElementById("timer-box-text").style.color = "white";
-                document.getElementById("timer-box-text").style.fontSize = "300%";
-                document.getElementById("timer-box-text").innerHTML = (s - (s %= 60)) / 60 + (10 < s ? ':' : ':0') + Math.trunc(s);
+                document.getElementById("timer-box-text").style.fontSize =
+                    "300%";
+                document.getElementById("timer-box-text").innerHTML =
+                    (s - (s %= 60)) / 60 +
+                    (10 < s ? ":" : ":0") +
+                    Math.trunc(s);
+            } else {
+                document.getElementById("timer-box-text").innerHTML =
+                    (s - (s %= 60)) / 60 +
+                    (10 < s ? ":" : ":0") +
+                    Math.trunc(s);
             }
-            else {
-                document.getElementById("timer-box-text").innerHTML = (s - (s %= 60)) / 60 + (10 < s ? ':' : ':0') + Math.trunc(s);
-            }
-
         }
     }
 
@@ -269,7 +296,7 @@ export default class Main {
         if (this.camera) this.camera.resize();
     }
 
-    destroy() { }
+    destroy() {}
 }
 
 function setPhysics() {
@@ -299,8 +326,8 @@ async function setScene() {
 
     manager.onLoad = function () {
         console.log("Just finished loading models");
-        document.getElementById("loading-screen").style.opacity = 0;
-        document.getElementById("landing-page").style.opacity = 1;
+        // document.getElementById("loading-screen").style.opacity = 0;
+        // document.getElementById("landing-page").style.opacity = 1;
     };
 
     // Wait for models to be loaded
