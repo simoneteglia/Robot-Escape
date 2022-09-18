@@ -26,9 +26,9 @@ body {
     z-index: 1000;
 }
 
-#controls-container {
+/* #controls-container {
     display: none;
-}
+} */
 
 .timer-button {
     position: fixed;

@@ -348,15 +348,15 @@ export default class MainRoom {
         this.finalDoorBody.name = "mainRoom.finalDoor";
         this.physics.addBody(this.finalDoorBody);
 
-        document.getElementById("open-final-door").onclick = () => {
-            this.finalDoorBody.collisionFilterMask = 0;
-            let door =
-                this.scene.getObjectByName("mainRoom.finalDoor").children[0]
-                    .children[0].children[0];
-            let elem1 = door.children[0].children[0].children[1];
-            console.log(elem1);
-            openFinalDoor(elem1);
-        };
+        // document.getElementById("open-final-door").onclick = () => {
+        //     this.finalDoorBody.collisionFilterMask = 0;
+        //     let door =
+        //         this.scene.getObjectByName("mainRoom.finalDoor").children[0]
+        //             .children[0].children[0];
+        //     let elem1 = door.children[0].children[0].children[1];
+        //     console.log(elem1);
+        //     openFinalDoor(elem1);
+        // };
 
         newBody = new CANNON.Body({
             mass: 0,
@@ -632,17 +632,17 @@ export default class MainRoom {
         newRearLeftDoorBody.name = "mainRoom.slideDoor.left.rear";
         this.physics.addBody(newRearLeftDoorBody);
 
-        document.getElementById("open-left-rear-door").onclick = () => {
-            newRearLeftDoorBody.collisionFilterMask = 0;
-            let l = this.scene.getObjectByName("mainRoom.slideDoor.left.rear")
-                .children[0].children[0].children[0];
-            let r = this.scene.getObjectByName("mainRoom.slideDoor.left.rear")
-                .children[0].children[0].children[1];
-            console.log(l);
-            console.log(r);
-            openLeftDoor(l);
-            openRightDoor(r);
-        };
+        // document.getElementById("open-left-rear-door").onclick = () => {
+        //     newRearLeftDoorBody.collisionFilterMask = 0;
+        //     let l = this.scene.getObjectByName("mainRoom.slideDoor.left.rear")
+        //         .children[0].children[0].children[0];
+        //     let r = this.scene.getObjectByName("mainRoom.slideDoor.left.rear")
+        //         .children[0].children[0].children[1];
+        //     console.log(l);
+        //     console.log(r);
+        //     openLeftDoor(l);
+        //     openRightDoor(r);
+        // };
 
         /**
          * SLIDE DOOR FRONT LEFT
@@ -667,15 +667,15 @@ export default class MainRoom {
         newFrontLeftDoorBody.name = "mainRoom.slideDoor.left.front";
         this.physics.addBody(newFrontLeftDoorBody);
 
-        document.getElementById("open-left-front-door").onclick = () => {
-            newFrontLeftDoorBody.collisionFilterMask = 0;
-            let l = this.scene.getObjectByName("mainRoom.slideDoor.left.front")
-                .children[0].children[0].children[0];
-            let r = this.scene.getObjectByName("mainRoom.slideDoor.left.front")
-                .children[0].children[0].children[1];
-            openLeftDoor(l);
-            openRightDoor(r);
-        };
+        // document.getElementById("open-left-front-door").onclick = () => {
+        //     newFrontLeftDoorBody.collisionFilterMask = 0;
+        //     let l = this.scene.getObjectByName("mainRoom.slideDoor.left.front")
+        //         .children[0].children[0].children[0];
+        //     let r = this.scene.getObjectByName("mainRoom.slideDoor.left.front")
+        //         .children[0].children[0].children[1];
+        //     openLeftDoor(l);
+        //     openRightDoor(r);
+        // };
 
         // add_axes_helper(object);
         // add_box_helper(object);
@@ -709,15 +709,15 @@ export default class MainRoom {
         newRightDoorBody.name = "mainRoom.slideDoor.right";
         this.physics.addBody(newRightDoorBody);
 
-        document.getElementById("open-right-door").onclick = () => {
-            newRightDoorBody.collisionFilterMask = 0;
-            let l = this.scene.getObjectByName("mainRoom.slideDoor.right")
-                .children[0].children[0].children[0];
-            let r = this.scene.getObjectByName("mainRoom.slideDoor.right")
-                .children[0].children[0].children[1];
-            openLeftDoor(l);
-            openRightDoor(r);
-        };
+        // document.getElementById("open-right-door").onclick = () => {
+        //     newRightDoorBody.collisionFilterMask = 0;
+        //     let l = this.scene.getObjectByName("mainRoom.slideDoor.right")
+        //         .children[0].children[0].children[0];
+        //     let r = this.scene.getObjectByName("mainRoom.slideDoor.right")
+        //         .children[0].children[0].children[1];
+        //     openLeftDoor(l);
+        //     openRightDoor(r);
+        // };
 
         /**
          * Desk

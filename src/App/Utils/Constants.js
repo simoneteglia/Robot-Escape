@@ -99,6 +99,6 @@ export const CORRIDOR_WIDTH = 10.94;
 export const WALL_COLOR = "sandybrown";
 
 // DIFFICULTY PARAMETERS
-export const EASY_TIMER = 5;
+export const EASY_TIMER = 150;
 export const MEDIUM_TIMER = 120;
 export const HARD_TIMER = 90;

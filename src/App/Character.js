@@ -96,38 +96,38 @@ export default class Character {
         /* EVENT HANDLERS SECTION
          */
 
-        document.getElementById("dance-tween").onclick = () => {
-            bodyDanceTween(this);
-        };
+        // document.getElementById("dance-tween").onclick = () => {
+        //     bodyDanceTween(this);
+        // };
 
-        document.getElementById("death-tween").onclick = () => {
-            deathTween(this);
-        };
+        // document.getElementById("death-tween").onclick = () => {
+        //     deathTween(this);
+        // };
 
-        document.getElementById("knock-tween").onclick = () => {
-            knockTween(this);
+        // document.getElementById("knock-tween").onclick = () => {
+        //     knockTween(this);
 
-            document.getElementById("knock-audio").play();
-        };
+        //     document.getElementById("knock-audio").play();
+        // };
 
-        document.getElementById("idle-tween").onclick = () => {
-            neckTween(this).start();
-            idleBodyTween(this).start();
-            idleLeftUpperLegTween(this).start();
-            idleLeftLowerLegTween(this).start();
-            idleRightUpperLegTween(this).start();
-            idleRightLowerLegTween(this).start();
-        };
+        // document.getElementById("idle-tween").onclick = () => {
+        //     neckTween(this).start();
+        //     idleBodyTween(this).start();
+        //     idleLeftUpperLegTween(this).start();
+        //     idleLeftLowerLegTween(this).start();
+        //     idleRightUpperLegTween(this).start();
+        //     idleRightLowerLegTween(this).start();
+        // };
 
-        document.getElementById("head-tween").onclick = () =>
-            neckTween(this).start();
-        document.getElementById("yes-tween").onclick = () => yesTween(this);
-        document.getElementById("no-tween").onclick = () => noTween(this);
-        document.getElementById("thumbsUp-tween").onclick = () =>
-            thumbsUpTween(this).start();
-        document.getElementById("wave-tween").onclick = () => waveTween(this);
-        document.getElementById("lean-tween").onclick = () =>
-            leanTween(this, 0.4383);
+        // document.getElementById("head-tween").onclick = () =>
+        //     neckTween(this).start();
+        // document.getElementById("yes-tween").onclick = () => yesTween(this);
+        // document.getElementById("no-tween").onclick = () => noTween(this);
+        // document.getElementById("thumbsUp-tween").onclick = () =>
+        //     thumbsUpTween(this).start();
+        // document.getElementById("wave-tween").onclick = () => waveTween(this);
+        // document.getElementById("lean-tween").onclick = () =>
+        //     leanTween(this, 0.4383);
         scene.add(rootNode);
 
         this.characterHeight = 2.2;
@@ -163,7 +163,7 @@ export default class Character {
         window.addEventListener("keyup", this.handleKeyPress.bind(this));
     }
 
-    doNothing() { }
+    doNothing() {}
 
     handleKeyPress(e) {
         const { keyCode, type } = e;
@@ -1197,7 +1197,6 @@ export default class Character {
                 x < 8.4 &&
                 !this.main.rightDoorOpen
             ) {
-
                 if (!this.main.closeUpActive) this.main.camera.goLookPinPad();
                 this.main.closeUpActive = true;
                 this.main.pinPadActive = true;
@@ -1249,7 +1248,6 @@ export default class Character {
                     this.main.camera.goLookLeftRearDoor();
                 }
             } else if (
-
                 /**
                  * FINAL DOOR
                  */
