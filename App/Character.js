@@ -90,44 +90,6 @@ export default class Character {
         //Handle skeleton bones
         this.setBones(rootNode, bones);
 
-        //Handle GUI
-        // this.setGui();
-
-        /* EVENT HANDLERS SECTION
-         */
-
-        // document.getElementById("dance-tween").onclick = () => {
-        //     bodyDanceTween(this);
-        // };
-
-        // document.getElementById("death-tween").onclick = () => {
-        //     deathTween(this);
-        // };
-
-        // document.getElementById("knock-tween").onclick = () => {
-        //     knockTween(this);
-
-        //     document.getElementById("knock-audio").play();
-        // };
-
-        // document.getElementById("idle-tween").onclick = () => {
-        //     neckTween(this).start();
-        //     idleBodyTween(this).start();
-        //     idleLeftUpperLegTween(this).start();
-        //     idleLeftLowerLegTween(this).start();
-        //     idleRightUpperLegTween(this).start();
-        //     idleRightLowerLegTween(this).start();
-        // };
-
-        // document.getElementById("head-tween").onclick = () =>
-        //     neckTween(this).start();
-        // document.getElementById("yes-tween").onclick = () => yesTween(this);
-        // document.getElementById("no-tween").onclick = () => noTween(this);
-        // document.getElementById("thumbsUp-tween").onclick = () =>
-        //     thumbsUpTween(this).start();
-        // document.getElementById("wave-tween").onclick = () => waveTween(this);
-        // document.getElementById("lean-tween").onclick = () =>
-        //     leanTween(this, 0.4383);
         scene.add(rootNode);
 
         this.characterHeight = 2.2;
@@ -1046,14 +1008,16 @@ export default class Character {
     }
 
     update() {
-        /**
-         * MOVEMENT
-         */
-
         if (!this.main.started) {
             this.main.started = true;
             this.main.camera.getCameraToPosition();
+            document.getElementById("timer-button").style.opacity = 1;
+            console.log("start");
         }
+
+        /**
+         * MOVEMENT
+         */
 
         if (!this.main.closeUpActive) {
             if (

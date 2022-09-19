@@ -17,11 +17,22 @@ export default class Main {
         let scene = await setScene();
         let textures = await setTextures();
         let physics = setPhysics();
+        /**
+         * DIFFICULTY
+         * 1 = EASY
+         * 2 = MEDIUM
+         * 3 = HARD
+         */
+        const params = window.location.search;
+        const urlParams = new URLSearchParams(params);
+        let difficulty = urlParams.get("diff");
+        console.log(difficulty);
         return new Main({
             targetElement: document.querySelector(".main"),
             scene: scene,
             textures: textures,
             physics: physics,
+            difficulty: difficulty,
         });
     }
 
@@ -43,6 +54,7 @@ export default class Main {
         this.scene = args.scene;
         this.textures = args.textures;
         this.physics = args.physics;
+        this.difficulty = args.difficulty;
         this.closeUpActive = true;
         this.pinPadActive = false;
 
@@ -63,139 +75,50 @@ export default class Main {
         this.setCamera();
         this.setRenderer();
         this.setWorld();
-        //this.setLandingButtons();
 
         // this.activeCamera = this.camera.orbitControlsCamera;
         this.activeCamera = this.camera.mainCamera;
 
-        this.maxClockValue = EASY_TIMER;
+        this.maxClockValue = undefined;
         this.startingAlertClock = this.maxClockValue * 0.1;
         this.clock = new THREE.Clock();
-        console.log(this.clock);
-        //this.clock.start();
+        // console.log(this.clock);
         this.started = false;
         this.gameOver = 0;
-        /**
-         * DIFFICULTY
-         * 1 = EASY
-         * 2 = MEDIUM
-         * 3 = HARD
-         */
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-            get: (searchParams, prop) => searchParams.get(prop),
-        });
-        let value = params.diff;
-        console.log(value);
-        this.difficulty = value;
+
         this.turn = 0;
+
+        this.setDifficultyParameters();
 
         this.update();
     }
 
-    setLandingButtons() {
-        let landing = document.getElementById("landing-page");
-        // document.getElementById("start-button").onclick = () => {
-        //     this.camera.getCameraToPosition();
-        //     document.getElementById("landing-page").style.pointerEvents =
-        //         "none";
-        //     document.getElementById("timer-button").style.opacity = 1;
-        //     let dummy = { x: 0.8 };
-        //     new TWEEN.Tween(dummy)
-        //         .to({ x: 0 }, 800)
-        //         .onUpdate(() => (landing.style.opacity = dummy.x))
-        //         .start();
-        //     this.started = true;
-        //     if (this.difficulty === 1) {
-        //         this.scene.getObjectByName("mainRoom.arrow").visible = true;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowBucket"
-        //         ).visible = true;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowPinpad"
-        //         ).visible = true;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowButton"
-        //         ).visible = true;
-        //         this.maxClockValue = EASY_TIMER;
-        //         this.startingAlertClock = this.maxClockValue * 0.1;
-        //     } else if (this.difficulty === 2) {
-        //         this.scene.getObjectByName("mainRoom.arrow").visible = true;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowBucket"
-        //         ).visible = false;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowPinpad"
-        //         ).visible = true;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowButton"
-        //         ).visible = false;
-        //         this.maxClockValue = MEDIUM_TIMER;
-        //         this.startingAlertClock = this.maxClockValue * 0.1;
-        //     } else {
-        //         this.scene.getObjectByName("mainRoom.arrow").visible = false;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowBucket"
-        //         ).visible = false;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowPinpad"
-        //         ).visible = false;
-        //         this.scene.getObjectByName(
-        //             "mainRoom.arrowButton"
-        //         ).visible = false;
-        //         this.maxClockValue = HARD_TIMER;
-        //         this.startingAlertClock = this.maxClockValue * 0.1;
-        //     }
-        // };
-
-        let easyButton = document.getElementById("easy-button");
-        let mediumButton = document.getElementById("medium-button");
-        let hardButton = document.getElementById("hard-button");
-        let backButton = document.getElementById("back-button");
-        let rulesButton = document.getElementById("rules-button");
-
-        /**
-         * INITIAL
-         */
-        // easyButton.onclick = () => {
-        //     easyButton.style.transform = "scale(1.2)";
-        //     mediumButton.style.transform = "scale(1)";
-        //     hardButton.style.transform = "scale(1)";
-
-        //     easyButton.style.setProperty("--easy-underline-width", "100%");
-        //     mediumButton.style.setProperty("--medium-underline-width", "0%");
-        //     hardButton.style.setProperty("--hard-underline-width", "0%");
-
-        //     this.difficulty = 1;
-        // };
-        // mediumButton.onclick = () => {
-        //     easyButton.style.transform = "scale(1)";
-        //     mediumButton.style.transform = "scale(1.2)";
-        //     hardButton.style.transform = "scale(1)";
-
-        //     easyButton.style.setProperty("--easy-underline-width", "0%");
-        //     mediumButton.style.setProperty("--medium-underline-width", "100%");
-        //     hardButton.style.setProperty("--hard-underline-width", "0%");
-
-        //     this.difficulty = 2;
-        // };
-        // hardButton.onclick = () => {
-        //     hardButton.style.transform = "scale(1.2)";
-        //     easyButton.style.transform = "scale(1)";
-        //     mediumButton.style.transform = "scale(1)";
-
-        //     hardButton.style.setProperty("--hard-underline-width", "100%");
-        //     easyButton.style.setProperty("--easy-underline-width", "0%");
-        //     mediumButton.style.setProperty("--medium-underline-width", "0%");
-
-        //     this.difficulty = 3;
-        // };
-
-        // backButton.onclick = () => {
-        //     document.getElementById("rules").style.left = "100vw";
-        // };
-        // rulesButton.onclick = () => {
-        //     document.getElementById("rules").style.left = "0";
-        // };
+    setDifficultyParameters() {
+        if (this.difficulty === "1") {
+            console.log("EASY");
+            this.scene.getObjectByName("mainRoom.arrow").visible = true;
+            this.scene.getObjectByName("mainRoom.arrowBucket").visible = true;
+            this.scene.getObjectByName("mainRoom.arrowPinpad").visible = true;
+            this.scene.getObjectByName("mainRoom.arrowButton").visible = true;
+            this.maxClockValue = EASY_TIMER;
+            this.startingAlertClock = this.maxClockValue * 0.1;
+        } else if (this.difficulty === "2") {
+            console.log("MEDIUM");
+            this.scene.getObjectByName("mainRoom.arrow").visible = true;
+            this.scene.getObjectByName("mainRoom.arrowBucket").visible = false;
+            this.scene.getObjectByName("mainRoom.arrowPinpad").visible = true;
+            this.scene.getObjectByName("mainRoom.arrowButton").visible = false;
+            this.maxClockValue = MEDIUM_TIMER;
+            this.startingAlertClock = this.maxClockValue * 0.1;
+        } else {
+            console.log("HARD");
+            this.scene.getObjectByName("mainRoom.arrow").visible = false;
+            this.scene.getObjectByName("mainRoom.arrowBucket").visible = false;
+            this.scene.getObjectByName("mainRoom.arrowPinpad").visible = false;
+            this.scene.getObjectByName("mainRoom.arrowButton").visible = false;
+            this.maxClockValue = HARD_TIMER;
+            this.startingAlertClock = this.maxClockValue * 0.1;
+        }
     }
 
     setConfig() {
@@ -207,8 +130,6 @@ export default class Main {
             2
         );
 
-        // Width and height
-        // const boundings = this.targetElement.getBoundingClientRect();
         this.config.width = window.innerWidth;
         this.config.height = window.innerHeight;
     }
@@ -269,7 +190,7 @@ export default class Main {
                     //boxOver.style.pointerEvents = "";
                     let dummy = { x: 0 };
                     new TWEEN.Tween(dummy)
-                        .to({ x: 0.8 }, 1000)
+                        .to({ x: 1 }, 1000)
                         .onUpdate(() => (boxOver.style.opacity = dummy.x))
                         .start();
                 }

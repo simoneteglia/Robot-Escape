@@ -12,7 +12,7 @@ import {
     turnBackTween,
     turnFrontTween,
     turnLeftTween,
-    turnRightTween
+    turnRightTween,
 } from "./Animations.js";
 
 export default class Camera {
@@ -28,7 +28,7 @@ export default class Camera {
         this.orbitControlsCamera = this.create_orbitControls_camera();
         this.scene.add(this.orbitControlsCamera);
 
-        this.setButton()
+        this.setButton();
     }
 
     create_main_camera() {
@@ -48,7 +48,7 @@ export default class Camera {
     }
 
     create_orbitControls_camera() {
-        let camera = this.create_main_camera()
+        let camera = this.create_main_camera();
 
         camera.name = "orbitControlsCamera";
 
@@ -71,9 +71,12 @@ export default class Camera {
             document.getElementById("exit-button").style.cursor = "default";
             document.getElementById("exit-button").style.pointerEvents = "none";
             document.getElementById("dialogue-box-container").style.opacity = 0;
-            document.getElementById("dialogue-box-container").style.pointerEvents = "none";
+            document.getElementById(
+                "dialogue-box-container"
+            ).style.pointerEvents = "none";
             document.getElementById("input-box-container").style.opacity = 0;
-            document.getElementById("input-box-container").style.pointerEvents = "none";
+            document.getElementById("input-box-container").style.pointerEvents =
+                "none";
             leanTween(this.main.world.character, 0);
         };
     }
@@ -90,10 +93,16 @@ export default class Camera {
                 noTween(this.main.world.character);
                 document.getElementById("exit-button").style.opacity = 1;
                 document.getElementById("exit-button").style.cursor = "pointer";
-                document.getElementById("exit-button").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-container").style.opacity = 1;
-                document.getElementById("dialogue-box-container").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-text").innerHTML = "Nothing to see here"
+                document.getElementById("exit-button").style.pointerEvents =
+                    "initial";
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.opacity = 1;
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.pointerEvents = "initial";
+                document.getElementById("dialogue-box-text").innerHTML =
+                    "Nothing to see here";
             })
             .start();
     }
@@ -114,10 +123,16 @@ export default class Camera {
             .onComplete(() => {
                 document.getElementById("exit-button").style.opacity = 1;
                 document.getElementById("exit-button").style.cursor = "pointer";
-                document.getElementById("exit-button").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-container").style.opacity = 1;
-                document.getElementById("dialogue-box-container").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-text").innerHTML = "Wait....did I press the button?!"
+                document.getElementById("exit-button").style.pointerEvents =
+                    "initial";
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.opacity = 1;
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.pointerEvents = "initial";
+                document.getElementById("dialogue-box-text").innerHTML =
+                    "Wait....did I press the button?!";
             })
             .start();
     }
@@ -130,28 +145,31 @@ export default class Camera {
         document.getElementById("timer-box-text").style.color = "white";
         document.getElementById("timer-box-text").style.fontSize = "300%";
         new TWEEN.Tween(this.mainCamera.rotation)
-            .to({
-                x: 0//y: -Math.PI / 2
-
-
-            }, 8000)
+            .to(
+                {
+                    x: 0, //y: -Math.PI / 2
+                },
+                8000
+            )
             .onComplete(() => {
                 this.main.gameWon = true;
                 let boxWon = document.getElementById("game-won-container");
                 boxWon.className = "landing-page";
                 let dummy = { x: 0 };
-                new TWEEN.Tween(dummy).to({ x: 0.8 }, 2000)
-                    .onUpdate(() => boxWon.style.opacity = dummy.x)
+                new TWEEN.Tween(dummy)
+                    .to({ x: 1 }, 2000)
+                    .onUpdate(() => (boxWon.style.opacity = dummy.x))
                     .start();
-
             })
             .start();
         new TWEEN.Tween(this.mainCamera.position)
-            .to({
-                y: 5,
-                z: -70
-
-            }, 4000)
+            .to(
+                {
+                    y: 5,
+                    z: -70,
+                },
+                4000
+            )
             .easing(TWEEN.Easing.Quadratic.InOut)
             .start();
         /* BUONO!
@@ -193,11 +211,16 @@ export default class Camera {
             .onComplete(() => {
                 document.getElementById("exit-button").style.opacity = 1;
                 document.getElementById("exit-button").style.cursor = "pointer";
-                document.getElementById("exit-button").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-container").style.opacity = 1;
-                document.getElementById("dialogue-box-container").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-text").innerHTML = "A wise bucket once said: Sometimes you just have to knock"
-
+                document.getElementById("exit-button").style.pointerEvents =
+                    "initial";
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.opacity = 1;
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.pointerEvents = "initial";
+                document.getElementById("dialogue-box-text").innerHTML =
+                    "A wise bucket once said: Sometimes you just have to knock";
 
                 leanTween(this.main.world.character, 0.4383);
             })
@@ -221,11 +244,16 @@ export default class Camera {
             .onComplete(() => {
                 document.getElementById("exit-button").style.opacity = 1;
                 document.getElementById("exit-button").style.cursor = "pointer";
-                document.getElementById("exit-button").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-container").style.opacity = 1;
-                document.getElementById("dialogue-box-container").style.pointerEvents = "initial";
-                document.getElementById("dialogue-box-text").innerHTML = "A wise bucket once said: Sometimes you just have to knock"
-
+                document.getElementById("exit-button").style.pointerEvents =
+                    "initial";
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.opacity = 1;
+                document.getElementById(
+                    "dialogue-box-container"
+                ).style.pointerEvents = "initial";
+                document.getElementById("dialogue-box-text").innerHTML =
+                    "A wise bucket once said: Sometimes you just have to knock";
 
                 leanTween(this.main.world.character, 0.4383);
             })
@@ -239,7 +267,10 @@ export default class Camera {
     goLookLeftFrontDoor() {
         const positionTween = new TWEEN.Tween(this.mainCamera.position)
             .to({
-                x: -this.main.scene.getObjectByName("mainRoom.slideDoor.left.front").position.x - 2,
+                x:
+                    -this.main.scene.getObjectByName(
+                        "mainRoom.slideDoor.left.front"
+                    ).position.x - 2,
                 y: 5,
                 z: 15,
             })
@@ -252,10 +283,8 @@ export default class Camera {
             .onComplete(() => {
                 document.getElementById("sliding-audio").play();
                 setTimeout(() => {
-
                     // this.getCameraToPosition();
                     this.goLookCharacterFromRight();
-
                 }, 1200);
             })
             .start();
@@ -264,7 +293,10 @@ export default class Camera {
     goLookLeftRearDoor() {
         const positionTween = new TWEEN.Tween(this.mainCamera.position)
             .to({
-                x: -this.main.scene.getObjectByName("mainRoom.slideDoor.left.rear").position.x - 2,
+                x:
+                    -this.main.scene.getObjectByName(
+                        "mainRoom.slideDoor.left.rear"
+                    ).position.x - 2,
                 y: 5,
                 z: -15,
             })
@@ -286,7 +318,9 @@ export default class Camera {
     goLookRightDoor() {
         const positionTween = new TWEEN.Tween(this.mainCamera.position)
             .to({
-                x: -this.main.scene.getObjectByName("mainRoom.slideDoor.right").position.x + 1,
+                x:
+                    -this.main.scene.getObjectByName("mainRoom.slideDoor.right")
+                        .position.x + 1,
                 y: 5,
                 z: 0,
             })
@@ -339,9 +373,12 @@ export default class Camera {
         turnRightTween(this.main.world.character).start();
         const positionTween = new TWEEN.Tween(this.mainCamera.position)
             .to({
-                x: this.main.scene.getObjectByName("mainRoom.pinPad").position.x - 10,
+                x:
+                    this.main.scene.getObjectByName("mainRoom.pinPad").position
+                        .x - 10,
                 y: 6,
-                z: this.main.scene.getObjectByName("mainRoom.pinPad").position.z,
+                z: this.main.scene.getObjectByName("mainRoom.pinPad").position
+                    .z,
             })
             .easing(TWEEN.Easing.Quadratic.InOut)
             .start();
@@ -350,60 +387,96 @@ export default class Camera {
             .to({ x: 0, y: -Math.PI / 2 })
             .easing(TWEEN.Easing.Quadratic.InOut)
             .onComplete(() => {
-                document.getElementById("input-box-container").style.opacity = 1;
-                document.getElementById("input-box-container").style.pointerEvents = "initial";
+                document.getElementById(
+                    "input-box-container"
+                ).style.opacity = 1;
+                document.getElementById(
+                    "input-box-container"
+                ).style.pointerEvents = "initial";
                 document.getElementById("exit-button").style.opacity = 1;
                 document.getElementById("exit-button").style.cursor = "pointer";
-                document.getElementById("exit-button").style.pointerEvents = "initial";
+                document.getElementById("exit-button").style.pointerEvents =
+                    "initial";
                 document.getElementById("input-box").focus();
-                console.log("Code = ?")
+                console.log("Code = ?");
                 let code;
                 window.addEventListener("keydown", (e) => {
                     const { keyCode } = e;
-                    if (keyCode === 13 && this.main.closeUpActive && this.main.pinPadActive) {
+                    if (
+                        keyCode === 13 &&
+                        this.main.closeUpActive &&
+                        this.main.pinPadActive
+                    ) {
                         code = document.getElementById("input-box").value;
-                        console.log(code)
+                        console.log(code);
                         if (code == 3579) {
-                            document.getElementById("input-box-container").style.opacity = 0;
-                            document.getElementById("input-box-container").style.pointerEvents = "none";
-                            document.getElementById("exit-button").style.opacity = 0;
-                            document.getElementById("exit-button").style.cursor = "initial";
-                            document.getElementById("exit-button").style.pointerEvents = "none";
+                            document.getElementById(
+                                "input-box-container"
+                            ).style.opacity = 0;
+                            document.getElementById(
+                                "input-box-container"
+                            ).style.pointerEvents = "none";
+                            document.getElementById(
+                                "exit-button"
+                            ).style.opacity = 0;
+                            document.getElementById(
+                                "exit-button"
+                            ).style.cursor = "initial";
+                            document.getElementById(
+                                "exit-button"
+                            ).style.pointerEvents = "none";
                             console.log("CORRECT!");
                             this.main.rightDoorOpen = true;
-                            this.main.physics.bodies.find(object => object.name === "mainRoom.slideDoor.right").collisionFilterMask = 0;
-                            let l = this.scene.getObjectByName("mainRoom.slideDoor.right").children[0].children[0].children[0];
-                            let r = this.scene.getObjectByName("mainRoom.slideDoor.right").children[0].children[0].children[1];
+                            this.main.physics.bodies.find(
+                                (object) =>
+                                    object.name === "mainRoom.slideDoor.right"
+                            ).collisionFilterMask = 0;
+                            let l = this.scene.getObjectByName(
+                                "mainRoom.slideDoor.right"
+                            ).children[0].children[0].children[0];
+                            let r = this.scene.getObjectByName(
+                                "mainRoom.slideDoor.right"
+                            ).children[0].children[0].children[1];
                             openLeftDoor(l);
                             openRightDoor(r);
                             turnLeftTween(this.main.world.character).start();
                             thumbsUpTween(this.main.world.character).start();
                             this.goLookRightDoor();
                             this.main.pinPadActive = false;
-                        }
-                        else {
-                            document.getElementById("dialogue-box").style.backgroundColor = "crimson";
+                        } else {
+                            document.getElementById(
+                                "dialogue-box"
+                            ).style.backgroundColor = "crimson";
                             setTimeout(() => {
-                                document.getElementById("dialogue-box").style.backgroundColor = "white";
+                                document.getElementById(
+                                    "dialogue-box"
+                                ).style.backgroundColor = "white";
                             }, 200);
                             setTimeout(() => {
-                                document.getElementById("dialogue-box").style.backgroundColor = "crimson";
+                                document.getElementById(
+                                    "dialogue-box"
+                                ).style.backgroundColor = "crimson";
                             }, 400);
                             setTimeout(() => {
-                                document.getElementById("dialogue-box").style.backgroundColor = "white";
+                                document.getElementById(
+                                    "dialogue-box"
+                                ).style.backgroundColor = "white";
                             }, 600);
                             setTimeout(() => {
-                                document.getElementById("dialogue-box").style.backgroundColor = "crimson";
+                                document.getElementById(
+                                    "dialogue-box"
+                                ).style.backgroundColor = "crimson";
                             }, 800);
                             setTimeout(() => {
-                                document.getElementById("dialogue-box").style.backgroundColor = "white";
+                                document.getElementById(
+                                    "dialogue-box"
+                                ).style.backgroundColor = "white";
                             }, 1000);
                         }
                     }
-                })
+                });
             })
             .start();
-
     }
 
     getCameraToPosition() {
