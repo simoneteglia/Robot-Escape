@@ -141,9 +141,9 @@ export default class Main {
     setRenderer() {
         this.renderer = new THREE.WebGLRenderer({
             alpha: false,
-            antialias: true,
+            antialias: false,
         });
-        this.renderer.setPixelRatio(this.config.pixelRatio);
+        this.renderer.setPixelRatio(this.config.pixelRatio * 0.8);
         this.renderer.setSize(this.config.width, this.config.height);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.VSMShadowMap;
