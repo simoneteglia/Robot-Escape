@@ -146,7 +146,7 @@ export default class Main {
         this.renderer.setPixelRatio(this.config.pixelRatio * 0.8);
         this.renderer.setSize(this.config.width, this.config.height);
         this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.VSMShadowMap;
+        this.renderer.shadowMap.type = THREE.PCFShadowMap;
         this.targetElement.appendChild(this.renderer.domElement);
     }
 
@@ -252,8 +252,6 @@ async function setScene() {
 
     manager.onLoad = function () {
         console.log("Just finished loading models");
-        // document.getElementById("loading-screen").style.opacity = 0;
-        // document.getElementById("landing-page").style.opacity = 1;
     };
 
     // Wait for models to be loaded

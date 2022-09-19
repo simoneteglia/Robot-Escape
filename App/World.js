@@ -45,8 +45,8 @@ export default class World {
         this.directionalLight.shadow.camera.left = -60;
         this.directionalLight.shadow.camera.top = 60;
         this.directionalLight.shadow.camera.bottom = -60;
-        this.directionalLight.shadow.mapSize.width = (1024 * 2) / 3;
-        this.directionalLight.shadow.mapSize.height = (1024 * 2) / 3;
+        this.directionalLight.shadow.mapSize.width = 1024 * 2;
+        this.directionalLight.shadow.mapSize.height = 1024 * 2;
         this.directionalLight.shadow.radius = 4;
         this.directionalLight.shadow.bias = -0.0005;
         this.scene.add(this.directionalLight);
